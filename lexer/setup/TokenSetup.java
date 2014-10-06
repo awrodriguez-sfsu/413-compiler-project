@@ -28,7 +28,7 @@ public class TokenSetup {
             in = new BufferedReader( new FileReader("lexer" + sep + "setup" + sep + "tokens"));
             table = new PrintWriter(new FileOutputStream("lexer" + sep + "TokenType.java"));
             symbols = new PrintWriter(new FileOutputStream("lexer" + sep + "Tokens.java"));
-        } catch (Exception e) {
+        } catch (FileNotFoundException e) {
         	System.out.println(e);
         }
     }
@@ -40,6 +40,7 @@ public class TokenSetup {
  *  <li>Program program</li>
  *  <li>Int int</li>
  *  <li>BOOLean boolean</li></ul>
+     * @throws java.io.IOException
 */
     public void getNextToken() throws IOException {
         try {
@@ -103,7 +104,7 @@ public class TokenSetup {
         symbols.close();
         try {
             in.close();
-        } catch (Exception e) {}
+        } catch (IOException e) {}
     }
 }
 

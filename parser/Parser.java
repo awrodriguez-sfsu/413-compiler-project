@@ -10,41 +10,41 @@ import ast.*;
  *  for the source program<br>
  *  Following is the Grammar we are using:<br>
  *  <pre>
- *  PROGRAM -> ‘program’ BLOCK ==> program
+ *  PROGRAM -> â€˜programâ€™ BLOCK ==> program
  *  
- *  BLOCK -> ‘{‘ D* S* ‘}’  ==> block
+ *  BLOCK -> â€˜{â€˜ D* S* â€˜}â€™  ==> block
  *  
  *  D -> TYPE NAME                    ==> decl
  *    -> TYPE NAME FUNHEAD BLOCK      ==> functionDecl
  *  
- *  TYPE  ->  ‘int’
- *        ->  ‘boolean’
+ *  TYPE  ->  â€˜intâ€™
+ *        ->  â€˜booleanâ€™
  *
  *  FUNHEAD  -> '(' (D list ',')? ')'  ==> formals<br>
  *
- *  S -> ‘if’ E ‘then’ BLOCK ‘else’ BLOCK  ==> if
- *    -> ‘while’ E BLOCK               ==> while
- *    -> ‘return’ E                    ==> return
+ *  S -> â€˜ifâ€™ E â€˜thenâ€™ BLOCK â€˜elseâ€™ BLOCK  ==> if
+ *    -> â€˜whileâ€™ E BLOCK               ==> while
+ *    -> â€˜returnâ€™ E                    ==> return
  *    -> BLOCK
- *    -> NAME ‘=’ E                    ==> assign<br>
+ *    -> NAME â€˜=â€™ E                    ==> assign<br>
  *  
  *  E -> SE
- *    -> SE ‘==’ SE   ==> =
- *    -> SE ‘!=’ SE   ==> !=
- *    -> SE ‘<’  SE   ==> <
- *    -> SE ‘<=’ SE   ==> <=
+ *    -> SE â€˜==â€™ SE   ==> =
+ *    -> SE â€˜!=â€™ SE   ==> !=
+ *    -> SE â€˜<â€™  SE   ==> <
+ *    -> SE â€˜<=â€™ SE   ==> <=
  *  
  *  SE  ->  T
- *      ->  SE ‘+’ T  ==> +
- *      ->  SE ‘-‘ T  ==> -
- *      ->  SE ‘|’ T  ==> or
+ *      ->  SE â€˜+â€™ T  ==> +
+ *      ->  SE â€˜-â€˜ T  ==> -
+ *      ->  SE â€˜|â€™ T  ==> or
  *  
  *  T  -> F
- *     -> T ‘*’ F  ==> *
- *     -> T ‘/’ F  ==> /
- *     -> T ‘&’ F  ==> and
+ *     -> T â€˜*â€™ F  ==> *
+ *     -> T â€˜/â€™ F  ==> /
+ *     -> T â€˜&â€™ F  ==> and
  *  
- *  F  -> ‘(‘ E ‘)’
+ *  F  -> â€˜(â€˜ E â€˜)â€™
  *     -> NAME
  *     -> <int>
  *     -> NAME '(' (E list ',')? ')' ==> call<br>
@@ -87,10 +87,10 @@ public class Parser {
     public AST execute() throws Exception {
         try {
             return rProgram();
-        }catch (SyntaxError e) {
+        } catch (SyntaxError e) {
             e.print();
             throw e;
-            }
+        }
     }
     
 /** <pre>
@@ -100,12 +100,12 @@ public class Parser {
  *  @exception SyntaxError - thrown for any syntax error
 */    
     public AST rProgram() throws SyntaxError {
-        // note that rProgram actually returns a ProgramTree; we use the 
-        // principle of substitutability to indicate it returns an AST
+       // note that rProgram actually returns a ProgramTree; we use the 
+       // principle of substitutability to indicate it returns an AST
        AST t = new ProgramTree();
-        expect(Tokens.Program);
-        t.addKid(rBlock());
-        return t;
+       expect(Tokens.Program);
+       t.addKid(rBlock());
+       return t;
     }
 
 /** <pre>
@@ -166,7 +166,7 @@ public class Parser {
             t = new IntTypeTree();
             scan();
         } else {
-            expect(Tokens.BOOLean);
+            expect(Tokens.Boolean);
             t = new BoolTypeTree();
         }
         return t;
@@ -322,7 +322,7 @@ public class Parser {
             expect(Tokens.RightParen);
             return t;
         }
-        if (isNextTok(Tokens.INTeger)) {  //  -> <int>
+        if (isNextTok(Tokens.Integer)) {  //  -> <int>
             t = new IntTree(currentToken);
             scan();
             return t;

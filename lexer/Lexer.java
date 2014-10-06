@@ -1,5 +1,9 @@
 package lexer;
 
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 
 /**
  *  The Lexer class is responsible for scanning the source file
@@ -24,24 +28,47 @@ public class Lexer {
         ch = source.read();
     }
 
-/*
     public static void main(String args[]) {
+        if (args.length < 1) {
+            System.err.println("This program needs an argument if it is being run as a jar");
+            System.exit(1);
+        }
+        String fileInput = args[0];
+        String program = "";
+        int lineNo = 0;
         Token tok;
         try {
-            Lexer lex = new Lexer("simple.x");
+            Lexer lex = new Lexer(fileInput);
             while (true) {
                 tok = lex.nextToken();
-                String p = "L: " + tok.getLeftPosition() +
-                   " R: " + tok.getRightPosition() + "  " +
-                   TokenType.tokens.get(tok.getKind()) + " ";
-                if ((tok.getKind() == Tokens.Identifier) ||
-                    (tok.getKind() == Tokens.INTeger))
+                if (lineNo < lex.source.getLineno()) {
+                    if (lex.source.getLineno() - lineNo > 1) {
+                        program += String.format("%1$-3s:", lineNo + 1);
+                        program += "\n";
+                    }
+                    program += String.format("%1$-3s: %2$-50s", lex.source.getLineno(), lex.source.getNextLine());
+                    lineNo = lex.source.getLineno();
+                    program += "\n";
+                }
+                String p = String.format("LineNo: %1$-3s L: %2$-2s  R: %3$-2s Token: %4$-14s: ",
+                            lex.source.getLineno(),
+                            tok.getLeftPosition(),
+                            tok.getRightPosition(),
+                            TokenType.tokens.get(tok.getKind()));
+                if ((tok.getKind() == Tokens.Identifier)
+                        || (tok.getKind() == Tokens.Integer)
+                        || (tok.getKind() == Tokens.Float)
+                        || (tok.getKind() == Tokens.ScientificN)
+                        || (tok.getKind() == Tokens.Char)){
+
                     p += tok.toString();
-                System.out.println(p + ": "+lex.source.getLineno());
+                }
+                System.out.println(p);
             }
-        } catch (Exception e) {}
+        } catch (Exception e) {
+            System.out.println(program);
+        }
     }
-*/
  
 /**
  *  newIdTokens are either ids or reserved words; new id's will be inserted
@@ -68,7 +95,19 @@ public class Lexer {
 */
     public Token newNumberToken(String number,int startPosition,int endPosition) {
         return new Token(startPosition,endPosition,
-            Symbol.symbol(number,Tokens.INTeger));
+            Symbol.symbol(number,Tokens.Integer));
+    }
+
+    public Token newFloatNumberToken(String number, int startPosition, int endPosition) {
+        return new Token(startPosition, endPosition, Symbol.symbol(number, Tokens.Float));
+    }
+
+    public Token newScientificNoteToken(String number, int startPosition, int endPosition) {
+        return new Token(startPosition, endPosition, Symbol.symbol(number, Tokens.ScientificN));
+    }
+
+    public Token newCharToken (String character, int startPosition, int endPosition) {
+        return new Token(startPosition, endPosition, Symbol.symbol(character, Tokens.Char));
     }
 
 /**
@@ -86,7 +125,7 @@ public class Lexer {
                do {
                    ch = source.read();
                } while (oldLine == source.getLineno());
-            } catch (Exception e) {
+            } catch (IOException e) {
                     atEOF = true;
             }
             return nextToken();
@@ -115,7 +154,7 @@ public class Lexer {
             while (Character.isWhitespace(ch)) {  // scan past whitespace
                 ch = source.read();
             }
-        } catch (Exception e) {
+        } catch (IOException e) {
             atEOF = true;
             return nextToken();
         }
@@ -131,13 +170,44 @@ public class Lexer {
                     id += ch;
                     ch = source.read();
                 } while (Character.isJavaIdentifierPart(ch));
-            } catch (Exception e) {
+            } catch (IOException e) {
                 atEOF = true;
             }
             return newIdToken(id,startPosition,endPosition);
         }
-        if (Character.isDigit(ch)) {
-            // return number tokens
+
+        if (ch == '\'') {
+            String character = "";
+            try {
+                endPosition++;
+                character += ch;
+                ch = source.read();
+                if(!Character.isAlphabetic(ch)) {
+                    return makeToken(character,startPosition,endPosition);
+                } else {
+                    endPosition++;
+                    character += ch;
+                    ch = source.read();
+
+                    if (ch != '\'') {
+                        do {
+                            endPosition++;
+                            character += ch;
+                            ch = source.read();
+                        } while (!Character.isWhitespace(ch));
+                        return makeToken(character,startPosition,endPosition);
+                    } else {
+                        endPosition++;
+                        character += ch;
+                    }
+                }
+            } catch (IOException ex) {
+                atEOF = true;
+            }
+            return newCharToken(character, startPosition, endPosition);
+        }
+
+        if (ch == '.') {
             String number = "";
             try {
                 do {
@@ -145,12 +215,65 @@ public class Lexer {
                     number += ch;
                     ch = source.read();
                 } while (Character.isDigit(ch));
-            } catch (Exception e) {
+            } catch (IOException ex) {
                 atEOF = true;
             }
+
+            return newFloatNumberToken(number, startPosition, endPosition);
+        }
+
+        if (Character.isDigit(ch) || ch == '-') {
+            // return number tokens
+            String number = "";
+            boolean isNormalSciNote = true;
+            try {
+                do {
+                    endPosition++;
+                    number += ch;
+                    ch = source.read();
+                } while (Character.isDigit(ch));
+            } catch (IOException e) {
+                atEOF = true;
+            }
+
+            if (ch == '.') {
+                if (number.length() > 1) {
+                    isNormalSciNote = false;
+                }
+                try {
+                    do{
+                        endPosition++;
+                        number += ch;
+                        ch = source.read();
+                    } while(Character.isDigit(ch));
+                } catch (IOException ex) {
+                    atEOF = true;
+                }
+
+                if (isNormalSciNote && (ch == 'e' || ch == 'E')) {
+                    try{
+                        do{
+                            endPosition++;
+                            number += ch;
+                            ch = source.read();
+                            if (ch == '-' || ch == '+') {
+                                endPosition++;
+                                number += ch;
+                                ch = source.read();
+                            }
+                        } while(Character.isDigit(ch));
+                    } catch (IOException ex) {
+                        atEOF = true;
+                    }
+                    return newScientificNoteToken(number, startPosition, endPosition);
+                }
+
+                return newFloatNumberToken(number, startPosition, endPosition);
+            }
+
             return newNumberToken(number,startPosition,endPosition);
         }
-        
+
         // At this point the only tokens to check for are one or two
         // characters; we must also check for comments that begin with
         // 2 slashes
@@ -171,7 +294,7 @@ public class Lexer {
             endPosition++;
             ch = source.read();
             return makeToken(op,startPosition,endPosition);
-        } catch (Exception e) {}
+        } catch (IOException e) {}
         atEOF = true;
         if (startPosition == endPosition) {
             op = charOld;

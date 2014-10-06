@@ -10,7 +10,7 @@ public class TokenType {
    public TokenType() {
      tokens.put(Tokens.Program, Symbol.symbol("program",Tokens.Program));
      tokens.put(Tokens.Int, Symbol.symbol("int",Tokens.Int));
-     tokens.put(Tokens.BOOLean, Symbol.symbol("boolean",Tokens.BOOLean));
+     tokens.put(Tokens.Boolean, Symbol.symbol("boolean",Tokens.Boolean));
      tokens.put(Tokens.If, Symbol.symbol("if",Tokens.If));
      tokens.put(Tokens.Then, Symbol.symbol("then",Tokens.Then));
      tokens.put(Tokens.Else, Symbol.symbol("else",Tokens.Else));
@@ -18,7 +18,7 @@ public class TokenType {
      tokens.put(Tokens.Function, Symbol.symbol("function",Tokens.Function));
      tokens.put(Tokens.Return, Symbol.symbol("return",Tokens.Return));
      tokens.put(Tokens.Identifier, Symbol.symbol("<id>",Tokens.Identifier));
-     tokens.put(Tokens.INTeger, Symbol.symbol("<int>",Tokens.INTeger));
+     tokens.put(Tokens.Integer, Symbol.symbol("<int>",Tokens.Integer));
      tokens.put(Tokens.LeftBrace, Symbol.symbol("{",Tokens.LeftBrace));
      tokens.put(Tokens.RightBrace, Symbol.symbol("}",Tokens.RightBrace));
      tokens.put(Tokens.LeftParen, Symbol.symbol("(",Tokens.LeftParen));
@@ -36,5 +36,13 @@ public class TokenType {
      tokens.put(Tokens.Multiply, Symbol.symbol("*",Tokens.Multiply));
      tokens.put(Tokens.Divide, Symbol.symbol("/",Tokens.Divide));
      tokens.put(Tokens.Comment, Symbol.symbol("//",Tokens.Comment));
+     tokens.put(Tokens.Float, Symbol.symbol("<float>",Tokens.Float));
+     tokens.put(Tokens.FloatingPoint, Symbol.symbol("float",Tokens.FloatingPoint));
+     tokens.put(Tokens.Char, Symbol.symbol("char",Tokens.Char));
+     tokens.put(Tokens.Character, Symbol.symbol("<char>",Tokens.Character));
+     tokens.put(Tokens.Greater, Symbol.symbol(">",Tokens.Greater));
+     tokens.put(Tokens.GreaterEqual, Symbol.symbol(">=",Tokens.GreaterEqual));
+     tokens.put(Tokens.SingleQuote, Symbol.symbol("'",Tokens.SingleQuote));
+     tokens.put(Tokens.ScientificN, Symbol.symbol("<scientificN>",Tokens.ScientificN));
    }
 }

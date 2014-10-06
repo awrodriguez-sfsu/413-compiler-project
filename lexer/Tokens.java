@@ -5,10 +5,12 @@ package lexer;
  *  - it contains the enumberation of all of the tokens
 */
 public enum Tokens {
-  BogusToken,Program,Int,BOOLean,If,
+  BogusToken,Program,Int,Boolean,If,
     Then,Else,While,Function,Return,
-    Identifier,INTeger,LeftBrace,RightBrace,LeftParen,
+    Identifier,Integer,LeftBrace,RightBrace,LeftParen,
     RightParen,Comma,Assign,Equal,NotEqual,
     Less,LessEqual,Plus,Minus,Or,
-    And,Multiply,Divide,Comment
+    And,Multiply,Divide,Comment,Float,
+    FloatingPoint,Char,Character,Greater,GreaterEqual,
+    SingleQuote,ScientificN
 }

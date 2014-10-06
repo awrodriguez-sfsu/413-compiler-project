@@ -51,7 +51,7 @@ public class Compiler {
             // if the source file is "abc" print bytecodes to abc.cod
         }catch (Exception e) {
             System.out.println("********exception*******"+e.toString());
-         };
+         }
     }
     
     public static void main(String args[]) {

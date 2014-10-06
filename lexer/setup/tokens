@@ -1,6 +1,6 @@
 Program program
 Int int
-BOOLean boolean
+Boolean boolean
 If if
 Then then
 Else else
@@ -8,7 +8,7 @@ While while
 Function function
 Return return
 Identifier <id>
-INTeger <int>
+Integer <int>
 LeftBrace {
 RightBrace }
 LeftParen (
@@ -26,3 +26,11 @@ And &
 Multiply *
 Divide /
 Comment //
+Float <float>
+FloatingPoint float
+Char <char>
+Character char
+Greater >
+GreaterEqual >=
+SingleQuote '
+ScientificN <scientificN>

@@ -8,7 +8,7 @@ package lexer;
  *  </pre>
 */
 public class Token {
-  private int leftPosition,rightPosition;
+  private int leftPosition,rightPosition, lineNumber;
   private Symbol symbol;
 
 /**
@@ -20,6 +20,13 @@ public class Token {
    this.leftPosition = leftPosition;
    this.rightPosition = rightPosition;
    this.symbol = sym;
+  }
+
+  public Token(int leftPosition, int rightPosition, int lineNumber, Symbol sym) {
+      this.leftPosition = leftPosition;
+      this.rightPosition = rightPosition;
+      this.lineNumber = lineNumber;
+      this.symbol = sym;
   }
 
   public Symbol getSymbol() {
@@ -43,6 +50,10 @@ public class Token {
 
   public int getRightPosition() {
     return rightPosition;
+  }
+
+  public int getLineNumber() {
+      return lineNumber;
   }
 
 /**

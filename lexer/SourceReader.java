@@ -46,13 +46,14 @@ public class SourceReader {
     void close() {
         try {
             source.close();
-        } catch (Exception e) {}
+        } catch (IOException e) {}
     }
 
 /**
  *  read next char; track line #, character position in line<br>
  *  return space for newline
- *  @return the character just read in
+ *  @return the character just read
+     * @throws java.io.IOException
  *  @IOException is thrown for IO problems such as end of file
 */
     public char read() throws IOException {
@@ -92,5 +93,9 @@ public class SourceReader {
 */
     public int getLineno() {
         return lineno;
+    }
+
+    public String getNextLine() {
+        return nextLine;
     }
 }
