@@ -57,9 +57,9 @@ public class Lexer {
                             TokenType.tokens.get(tok.getKind()));
                 if ((tok.getKind() == Tokens.Identifier)
                         || (tok.getKind() == Tokens.Integer)
-                        || (tok.getKind() == Tokens.Float)
+                        || (tok.getKind() == Tokens.FloatingPoint)
                         || (tok.getKind() == Tokens.ScientificN)
-                        || (tok.getKind() == Tokens.Char)){
+                        || (tok.getKind() == Tokens.Character)){
 
                     p += tok.toString();
                 }
@@ -99,7 +99,7 @@ public class Lexer {
     }
 
     public Token newFloatNumberToken(String number, int startPosition, int endPosition) {
-        return new Token(startPosition, endPosition, Symbol.symbol(number, Tokens.Float));
+        return new Token(startPosition, endPosition, Symbol.symbol(number, Tokens.FloatingPoint));
     }
 
     public Token newScientificNoteToken(String number, int startPosition, int endPosition) {
@@ -107,7 +107,7 @@ public class Lexer {
     }
 
     public Token newCharToken (String character, int startPosition, int endPosition) {
-        return new Token(startPosition, endPosition, Symbol.symbol(character, Tokens.Char));
+        return new Token(startPosition, endPosition, Symbol.symbol(character, Tokens.Character));
     }
 
 /**

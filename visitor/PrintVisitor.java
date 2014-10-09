@@ -90,5 +90,4 @@ public class PrintVisitor extends ASTVisitor {
     public Object visitCharTypeTree(AST t) { print ("CharType", t); return null; }
 
     public Object visitScientificNTree(AST t) { print("ScientificN: " + ((ScientificNTree)t).getSymbol().toString(), t); return null; }
-    public Object visitScientificNTypeTree(AST t) { print ("ScientificNType", t); return null; }
 }

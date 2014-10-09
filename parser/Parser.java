@@ -243,6 +243,9 @@ public class Parser {
             t.addKid(rExpr());
             expect(Tokens.Then);
             t.addKid(rBlock());
+//            if (isNextTok(Tokens.If)) {
+//                t.addKid(rStatement());
+//            }
             expect(Tokens.Else);
             t.addKid(rBlock());
             return t;
@@ -352,6 +355,21 @@ public class Parser {
         }
         if (isNextTok(Tokens.Integer)) {  //  -> <int>
             t = new IntTree(currentToken);
+            scan();
+            return t;
+        }
+        if (isNextTok(Tokens.FloatingPoint)) {
+            t = new FloatTree(currentToken);
+            scan();
+            return t;
+        }
+        if (isNextTok(Tokens.Character)) {
+            t = new CharTree(currentToken);
+            scan();
+            return t;
+        }
+        if (isNextTok(Tokens.ScientificN)) {
+            t = new ScientificNTree(currentToken);
             scan();
             return t;
         }
