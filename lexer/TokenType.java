@@ -36,10 +36,10 @@ public class TokenType {
      tokens.put(Tokens.Multiply, Symbol.symbol("*",Tokens.Multiply));
      tokens.put(Tokens.Divide, Symbol.symbol("/",Tokens.Divide));
      tokens.put(Tokens.Comment, Symbol.symbol("//",Tokens.Comment));
-     tokens.put(Tokens.Float, Symbol.symbol("<float>",Tokens.Float));
-     tokens.put(Tokens.FloatingPoint, Symbol.symbol("float",Tokens.FloatingPoint));
-     tokens.put(Tokens.Char, Symbol.symbol("char",Tokens.Char));
+     tokens.put(Tokens.FloatingPoint, Symbol.symbol("<float>",Tokens.FloatingPoint));
+     tokens.put(Tokens.Float, Symbol.symbol("float",Tokens.Float));
      tokens.put(Tokens.Character, Symbol.symbol("<char>",Tokens.Character));
+     tokens.put(Tokens.Char, Symbol.symbol("char",Tokens.Char));
      tokens.put(Tokens.Greater, Symbol.symbol(">",Tokens.Greater));
      tokens.put(Tokens.GreaterEqual, Symbol.symbol(">=",Tokens.GreaterEqual));
      tokens.put(Tokens.SingleQuote, Symbol.symbol("'",Tokens.SingleQuote));

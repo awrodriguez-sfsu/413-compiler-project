@@ -10,7 +10,7 @@ public enum Tokens {
     Identifier,Integer,LeftBrace,RightBrace,LeftParen,
     RightParen,Comma,Assign,Equal,NotEqual,
     Less,LessEqual,Plus,Minus,Or,
-    And,Multiply,Divide,Comment,Float,
-    FloatingPoint,Char,Character,Greater,GreaterEqual,
+    And,Multiply,Divide,Comment,FloatingPoint,
+    Float,Character,Char,Greater,GreaterEqual,
     SingleQuote,ScientificN
 }

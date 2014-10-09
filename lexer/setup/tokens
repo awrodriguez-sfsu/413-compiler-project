@@ -26,10 +26,10 @@ And &
 Multiply *
 Divide /
 Comment //
-Float <float>
-FloatingPoint float
-Char <char>
-Character char
+FloatingPoint <float>
+Float float
+Character <char>
+Char char
 Greater >
 GreaterEqual >=
 SingleQuote '

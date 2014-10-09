@@ -31,23 +31,23 @@ public class Compiler {
             PrintVisitor pv = new PrintVisitor();
             t.accept(pv);
 /*  COMMENT CODE FROM HERE UNTIL THE CATCH CLAUSE WHEN TESTING PARSER */            
-            Constrainer con = new Constrainer(t,parser);
-            con.execute();
-            System.out.println("---------------DECORATED AST-------------");
-            t.accept(pv);
-/*  COMMENT CODE FROM HERE UNTIL THE CATCH CLAUSE WHEN TESTING CONSTRAINER */            
-            Codegen generator = new Codegen(t);
-            Program program = generator.execute();
-            System.out.println("---------------AST AFTER CODEGEN-------------");
-            t.accept(pv);
-            System.out.println("---------------INTRINSIC TREES-------------");
-            System.out.println("---------------READ/WRITE TREES-------------");
-            Constrainer.readTree.accept(pv);
-            Constrainer.writeTree.accept(pv);
-            System.out.println("---------------INT/BOOL TREES-------------");
-            Constrainer.intTree.accept(pv);
-            Constrainer.boolTree.accept(pv);
-            program.printCodes(sourceFile + ".cod");
+//            Constrainer con = new Constrainer(t,parser);
+//            con.execute();
+//            System.out.println("---------------DECORATED AST-------------");
+//            t.accept(pv);
+///*  COMMENT CODE FROM HERE UNTIL THE CATCH CLAUSE WHEN TESTING CONSTRAINER */            
+//            Codegen generator = new Codegen(t);
+//            Program program = generator.execute();
+//            System.out.println("---------------AST AFTER CODEGEN-------------");
+//            t.accept(pv);
+//            System.out.println("---------------INTRINSIC TREES-------------");
+//            System.out.println("---------------READ/WRITE TREES-------------");
+//            Constrainer.readTree.accept(pv);
+//            Constrainer.writeTree.accept(pv);
+//            System.out.println("---------------INT/BOOL TREES-------------");
+//            Constrainer.intTree.accept(pv);
+//            Constrainer.boolTree.accept(pv);
+//            program.printCodes(sourceFile + ".cod");
             // if the source file is "abc" print bytecodes to abc.cod
         }catch (Exception e) {
             System.out.println("********exception*******"+e.toString());
