@@ -4,6 +4,7 @@ import ast.*;
 import parser.Parser;
 import constrain.Constrainer;
 import codegen.*;
+import java.util.ArrayList;
 import visitor.*;
 
 /**
@@ -27,6 +28,7 @@ public class Compiler {
             System.out.println("---------------TOKENS-------------");
             Parser parser = new Parser(sourceFile);
             AST t = parser.execute();
+
             System.out.println("---------------AST-------------");
             PrintVisitor pv = new PrintVisitor();
             t.accept(pv);
@@ -55,10 +57,12 @@ public class Compiler {
     }
     
     public static void main(String args[]) {
-        if (args.length == 0) {
-            System.out.println("***Incorrect usage, try: java compiler.Compiler <file>");
-            System.exit(1);
-        }
-        (new Compiler(args[0])).compileProgram();
+        String filename = "test3.x";
+//        if (args.length == 0) {
+//            System.out.println("***Incorrect usage, try: java compiler.Compiler <file>");
+//            System.exit(1);
+//        }
+        //(new Compiler(args[0])).compileProgram();
+        (new Compiler(filename)).compileProgram();
     }
 }

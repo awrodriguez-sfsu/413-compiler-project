@@ -35,31 +35,31 @@ public class PrintVisitor extends ASTVisitor {
 */
     public void print(String s,AST t) {
         // assume less than 1000 nodes; no problem for csc 413
-        int num = t.getNodeNum();
-        AST decoration = t.getDecoration();
-        int decNum = (decoration == null)? -1 : decoration.getNodeNum();
-        String spaces = "";
-        if (num < 100) spaces += " ";
-        if (num < 10) spaces += " ";
-        System.out.print(num + ":" + spaces);
+//        int num = t.getNodeNum();
+//        AST decoration = t.getDecoration();
+//        int decNum = (decoration == null)? -1 : decoration.getNodeNum();
+//        String spaces = "";
+//        if (num < 100) spaces += " ";
+//        if (num < 10) spaces += " ";
+//        System.out.print(num + ":" + spaces);
         printSpaces(indent);
-        if (decNum != -1) {
-            s += "           Dec: " + decNum;
-        }
-        String lab = t.getLabel();
-        if ( lab.length() > 0 ) {
-            s += "  Label: "+t.getLabel();
-        }
-        if (t.getClass() == IdTree.class) {
-            int offset = ((IdTree)t).getFrameOffset();
-            if (offset >= 0) {
-                s += "  Addr: " + offset;
-            }
-        }
+//        if (decNum != -1) {
+//            s += "           Dec: " + decNum;
+//        }
+//        String lab = t.getLabel();
+//        if ( lab.length() > 0 ) {
+//            s += "  Label: "+t.getLabel();
+//        }
+//        if (t.getClass() == IdTree.class) {
+//            int offset = ((IdTree)t).getFrameOffset();
+//            if (offset >= 0) {
+//                s += "  Addr: " + offset;
+//            }
+//        }
         System.out.println(s);
-        indent += 2;
+        indent += 4;
         visitKids(t);
-        indent -= 2;
+        indent -= 4;
     }
 
     public Object visitProgramTree(AST t) { print("Program",t);  return null; }
@@ -90,4 +90,9 @@ public class PrintVisitor extends ASTVisitor {
     public Object visitCharTypeTree(AST t) { print ("CharType", t); return null; }
 
     public Object visitScientificNTree(AST t) { print("ScientificN: " + ((ScientificNTree)t).getSymbol().toString(), t); return null; }
+    
+    public Object visitDoTree(AST t) { print("Do", t); return null; }
+
+    public Object visitNegationTree(AST t) { print("!", t); return null; }
+    public Object visitUnaryTree(AST t) { print("-", t); return null; }
 }

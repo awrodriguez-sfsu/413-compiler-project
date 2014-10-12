@@ -39,7 +39,7 @@ public class TokenType {
      tokens.put(Tokens.LessEqual, Symbol.symbol("<=",Tokens.LessEqual));
      tokens.put(Tokens.Greater, Symbol.symbol(">",Tokens.Greater));
      tokens.put(Tokens.GreaterEqual, Symbol.symbol(">=",Tokens.GreaterEqual));
-     tokens.put(Tokens.Not, Symbol.symbol("!",Tokens.Not));
+     tokens.put(Tokens.Negation, Symbol.symbol("!",Tokens.Negation));
      tokens.put(Tokens.Or, Symbol.symbol("|",Tokens.Or));
      tokens.put(Tokens.And, Symbol.symbol("&",Tokens.And));
      tokens.put(Tokens.Plus, Symbol.symbol("+",Tokens.Plus));

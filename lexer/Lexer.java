@@ -50,20 +50,17 @@ public class Lexer {
                     lineNo = lex.source.getLineno();
                     program += "\n";
                 }
-                String p = String.format("LineNo: %1$-3s L: %2$-2s  R: %3$-2s Token: %4$-14s: ",
+                String p = String.format("LineNo: %1$-3s L: %2$-2s  R: %3$-2s Token: %4$-14s: %5$-10s [%6$s]",
                             lex.source.getLineno(),
                             tok.getLeftPosition(),
                             tok.getRightPosition(),
-                            TokenType.tokens.get(tok.getKind()));
-                if ((tok.getKind() == Tokens.Identifier)
-                        || (tok.getKind() == Tokens.Integer)
-                        || (tok.getKind() == Tokens.FloatingPoint)
-                        || (tok.getKind() == Tokens.ScientificN)
-                        || (tok.getKind() == Tokens.Character)){
-
-                    p += tok.toString();
+                            TokenType.tokens.get(tok.getKind()),
+                            tok.toString(),
+                            tok.getKind().toString()
+                            );
+                if (true) {
+                    System.out.println(p);
                 }
-                System.out.println(p);
             }
         } catch (Exception e) {
             System.out.println(program);
@@ -199,6 +196,7 @@ public class Lexer {
                     } else {
                         endPosition++;
                         character += ch;
+                        ch = source.read();
                     }
                 }
             } catch (IOException ex) {
@@ -273,7 +271,7 @@ public class Lexer {
 
             return newNumberToken(number,startPosition,endPosition);
         }
-
+        // debug
         // At this point the only tokens to check for are one or two
         // characters; we must also check for comments that begin with
         // 2 slashes

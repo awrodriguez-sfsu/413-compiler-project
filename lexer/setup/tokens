@@ -29,7 +29,7 @@ Less <
 LessEqual <=
 Greater >
 GreaterEqual >=
-Not !
+Negation !
 Or |
 And &
 Plus +

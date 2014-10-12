@@ -11,6 +11,6 @@ public enum Tokens {
     Char,Boolean,ScientificN,LeftBrace,RightBrace,
     LeftParen,RightParen,SingleQuote,Comma,Comment,
     Assign,Equal,NotEqual,Less,LessEqual,
-    Greater,GreaterEqual,Not,Or,And,
+    Greater,GreaterEqual,Negation,Or,And,
     Plus,Minus,Multiply,Divide
 }

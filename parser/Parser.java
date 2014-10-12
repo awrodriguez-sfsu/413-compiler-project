@@ -59,7 +59,8 @@ public class Parser {
     private Token currentToken;
     private Lexer lex;
     private EnumSet<Tokens> relationalOps
-            = EnumSet.of(Tokens.Equal, Tokens.NotEqual, Tokens.Less, Tokens.LessEqual);
+            = EnumSet.of(Tokens.Equal, Tokens.NotEqual, Tokens.Less, Tokens.LessEqual,
+            Tokens.Greater, Tokens.GreaterEqual);
     private EnumSet<Tokens> addingOps
             = EnumSet.of(Tokens.Plus, Tokens.Minus, Tokens.Or);
     private EnumSet<Tokens> multiplyingOps
@@ -243,11 +244,11 @@ public class Parser {
             t.addKid(rExpr());
             expect(Tokens.Then);
             t.addKid(rBlock());
-//            if (isNextTok(Tokens.If)) {
-//                t.addKid(rStatement());
-//            }
-            expect(Tokens.Else);
-            t.addKid(rBlock());
+            if (isNextTok(Tokens.Else)) {
+                expect(Tokens.Else); // Might not need this here?
+                t.addKid(rBlock());
+                return t;
+            }
             return t;
         }
         if (isNextTok(Tokens.While)) {
@@ -255,6 +256,14 @@ public class Parser {
             t = new WhileTree();
             t.addKid(rExpr());
             t.addKid(rBlock());
+            return t;
+        }
+        if (isNextTok(Tokens.Do)) {
+            scan();
+            t = new DoTree();
+            t.addKid(rBlock());
+            expect(Tokens.While);
+            t.addKid(rExpr());
             return t;
         }
         if (isNextTok(Tokens.Return)) {
@@ -373,6 +382,21 @@ public class Parser {
             scan();
             return t;
         }
+
+        if (isNextTok(Tokens.Negation)) {
+            t = new NegationTree();
+            scan();
+            t.addKid(rExpr());
+            return t;
+        }
+
+        if (isNextTok(Tokens.Minus)) {
+            t = new UnaryTree();
+            scan();
+            t.addKid(rExpr());
+            return t;
+        }
+        
         t = rName();
         if (!isNextTok(Tokens.LeftParen)) {  //  -> name
             return t;

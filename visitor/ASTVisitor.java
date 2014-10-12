@@ -48,4 +48,9 @@ public abstract class ASTVisitor {
     public abstract Object visitCharTypeTree(AST t);
     
     public abstract Object visitScientificNTree(AST t);
+    
+    public abstract Object visitDoTree(AST t);
+
+    public abstract Object visitNegationTree(AST t);
+    public abstract Object visitUnaryTree(AST t);
 }
