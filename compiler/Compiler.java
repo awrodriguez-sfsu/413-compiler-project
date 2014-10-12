@@ -57,12 +57,12 @@ public class Compiler {
     }
     
     public static void main(String args[]) {
-        String filename = "test3.x";
-//        if (args.length == 0) {
-//            System.out.println("***Incorrect usage, try: java compiler.Compiler <file>");
-//            System.exit(1);
-//        }
-        //(new Compiler(args[0])).compileProgram();
-        (new Compiler(filename)).compileProgram();
+        //String filename = "test3.x";
+        if (args.length == 0) {
+            System.out.println("***Incorrect usage, try: java compiler.Compiler <file>");
+            System.exit(1);
+        }
+        (new Compiler(args[0])).compileProgram();
+        //(new Compiler(filename)).compileProgram();
     }
 }
